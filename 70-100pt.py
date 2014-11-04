@@ -16,8 +16,9 @@ drawpad = Canvas(root, width=800,height=600, background='white')
 player = drawpad.create_oval(390,580,410,600, fill="red")
 
 # Create your "enemies" here, before the class
-
-
+enemy1 = drawpad.create_rectangle(50,50,150,60,fill='orange')
+enemy2 = drawpad.create_rectangle(400,400,430,420,fill='red')
+enemy3 = drawpad.create_rectangle(500,300,560,260,fill='orange')
 class MyApp:
 	def __init__(self, parent):
        	    global drawpad
@@ -25,10 +26,27 @@ class MyApp:
        	    self.myContainer1 = Frame(parent)
        	    self.myContainer1.pack()
        	    self.up = Button(self.myContainer1)
-       	    self.up.configure(text="up", background= "green")
+       	    self.up.configure(text="up", background= "white")
        	    self.up.grid(row=0,column=0)
        	    # Bind an event to the first button
        	    self.up.bind("<Button-1>", self.upClicked)
+       	    
+       	    self.down = Button(self.myContainer1)
+       	    self.down.configure(text="down", background= "maroon")
+       	    self.down.grid(row=0,column=2)
+       	    # Bind an event to the first button
+       	    self.down.bind("<Button-1>", self.downClicked)
+       	    
+       	    self.left = Button(self.myContainer1)
+       	    self.left.configure(text="left", background= "white")
+       	    self.left.grid(row=0,column=3)
+       	    # Bind an event to the first button
+       	    self.left.bind("<Button-1>", self.leftClicked)
+       	    
+       	    self.right = Button(self.myContainer1)
+       	    self.right.configure(text="right", background= "maroon")
+       	    self.right.grid(row=0,column=4)
+       	    self.right.bind("<Button-1>", self.rightClicked)
        	    
        	    # No need to edit this - just includes the drawpad into our frame
        	    drawpad.pack(side=RIGHT)
@@ -38,15 +56,30 @@ class MyApp:
 	def animate(self):
 	    global drawpad
 	    global player
+	    global enemy1, enemy2, enemy3
+	    drawpad.move(enemy1,2,0)
 	    # Remember to include your "enemies" with "global"
 	    
 	    # Uncomment this when you're ready to test out your animation!
-	    #drawpad.after(10,self.animate)
+	    drawpad.after(10,self.animate)
 		
 	def upClicked(self, event):   
 	   global oval
 	   global player
-	   drawpad.move(player,0,-20)
+	   drawpad.move(player,0,-20)	
+	def downClicked(self, event):   
+	   global oval
+	   global player
+	   drawpad.move(player,0,20)	
+	def rightClicked(self, event):   
+	   global oval
+	   global player
+	   drawpad.move(player,20,0)	
+	def leftClicked(self, event):   
+	   global oval
+	   global player
+	   drawpad.move(player,-20,0)
+	 
 		
 
 app = MyApp(root)
